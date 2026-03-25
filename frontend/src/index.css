@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-white;
+  }
+}
+
+@layer components {
+  /* Glassmorphism effect */
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-lg;
+  }
+  
+  .glass-dark {
+    @apply bg-black/20 backdrop-blur-md border border-white/10 rounded-lg;
+  }
+  
+  /* Coral button */
+  .btn-coral {
+    @apply bg-coral-500 hover:bg-coral-600 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-coral-500/50;
+  }
+  
+  /* Ocean button */
+  .btn-ocean {
+    @apply bg-ocean-600 hover:bg-ocean-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-ocean-500/50;
+  }
+  
+  /* Input field */
+  .input-ocean {
+    @apply glass px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-ocean-400 text-white placeholder-white/50;
+  }
+  
+  /* Ensure Leaflet map container renders correctly */
+  .leaflet-container {
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1;
+    background: #1a1a2e !important;
+  }
+
+  /* MarkerCluster dark-theme overrides */
+  .marker-cluster-small,
+  .marker-cluster-medium,
+  .marker-cluster-large {
+    background: transparent !important;
+  }
+  .marker-cluster-small div,
+  .marker-cluster-medium div,
+  .marker-cluster-large div {
+    background: transparent !important;
+  }
+  .leaflet-popup-content-wrapper {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
+  }
+  .leaflet-popup-tip {
+    background: #1e293b !important;
+  }
+  .leaflet-popup-content {
+    margin: 10px 14px !important;
+  }
+  .leaflet-popup-close-button {
+    color: #94a3b8 !important;
+  }
+
+  /* Bubble animation elements */
+  .bubble {
+    @apply absolute rounded-full bg-white/10 backdrop-blur-sm;
+    animation: bubble 8s ease-in-out infinite;
+  }
+}
