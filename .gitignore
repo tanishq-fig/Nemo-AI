@@ -55,3 +55,4 @@ data/processed/
 *.log
 logs/
 .vercel
+vercel_logs_*.txt
