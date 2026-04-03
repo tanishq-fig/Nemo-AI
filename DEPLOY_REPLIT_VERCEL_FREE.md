@@ -17,12 +17,15 @@ This is the easiest no-card path if Hugging Face signup is blocked.
 2. Import this GitHub repo.
 3. If Replit shows recovery mode, click **Recover original configuration files** once, then re-import the GitHub repo or refresh the workspace.
 4. Replit should detect the Python config files in the repo root.
-5. In Replit, run the app with the provided run command:
-   - `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
+5. In Replit, click Run. The repo now uses [replit_run.sh](replit_run.sh) to install dependencies and start uvicorn automatically.
 6. If Replit asks to install dependencies, it will read [requirements.txt](requirements.txt).
 7. Open the deployed backend URL.
 8. Check health endpoint:
    - `/health`
+
+You should see logs ending with a uvicorn line similar to:
+
+- `Uvicorn running on http://0.0.0.0:3000` (or the provided `PORT`)
 
 Notes:
 - This backend uses SQLite by default, so no database card or external DB is needed.
