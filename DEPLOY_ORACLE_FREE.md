@@ -57,11 +57,17 @@ chmod +x oracle_deploy.sh
 ./oracle_deploy.sh
 ```
 
-On first run it creates .env then exits.
+The script now auto-creates and updates `.env`, then prompts for:
 
-## 6. Configure .env
+- app domain
+- API domain
+- ACME email
 
-Edit $HOME/Nemo-AI/.env and set real values:
+It also auto-generates `SECRET_KEY` if needed.
+
+## 6. Optional: review .env
+
+You can still review and edit `$HOME/Nemo-AI/.env` manually:
 
 ```env
 POSTGRES_USER=argo_user
@@ -82,7 +88,7 @@ OPENAI_API_KEY=
 GEMINI_API_KEY=
 ```
 
-Run deployment again:
+If you change values, re-run:
 
 ```bash
 cd $HOME/Nemo-AI
