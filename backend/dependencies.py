@@ -2,6 +2,9 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
+from datetime import datetime
+from types import SimpleNamespace
+import os
 
 from database import get_db
 from models import User
@@ -41,6 +44,14 @@ async def get_current_user(
     
     # Find user in database
     user = db.query(User).filter(User.email == email).first()
+    if user is None and os.getenv("VERCEL") == "1":
+        return SimpleNamespace(
+            id=payload.get("user_id", abs(hash(email)) % 1_000_000_000),
+            name=payload.get("name", email.split("@")[0]),
+            email=email,
+            created_at=datetime.utcnow(),
+        )
+
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
