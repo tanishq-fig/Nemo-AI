@@ -1,6 +1,7 @@
 """Application configuration management."""
 from pydantic_settings import BaseSettings
 from typing import List
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -20,7 +21,7 @@ class Settings(BaseSettings):
     
     # Server
     BACKEND_HOST: str = "0.0.0.0"
-    BACKEND_PORT: int = 8001
+    BACKEND_PORT: int = 8000
     
     # CORS
     CORS_ORIGINS: List[str] = [
@@ -33,6 +34,17 @@ class Settings(BaseSettings):
         "http://localhost:5176",
         "http://127.0.0.1:5176"
     ]
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, value):
+        """Allow CORS_ORIGINS as a JSON list or comma-separated string."""
+        if isinstance(value, str):
+            value = value.strip()
+            if value.startswith("[") and value.endswith("]"):
+                return value
+            return [origin.strip() for origin in value.split(",") if origin.strip()]
+        return value
     
     # Data paths
     NETCDF_DATA_DIR: str = "./data/raw"
