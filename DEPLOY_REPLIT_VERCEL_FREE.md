@@ -9,19 +9,19 @@ This is the easiest no-card path if Hugging Face signup is blocked.
 
 - [requirements.txt](requirements.txt) - Replit-friendly backend dependencies
 - [.replit](.replit) - Run command for Replit
-- [replit.nix](replit.nix) - Python runtime definition
 - [frontend/vercel.json](frontend/vercel.json) - SPA rewrites for Vercel
 
 ## 1) Deploy backend on Replit
 
 1. Create a free Replit account.
 2. Import this GitHub repo.
-3. Replit should detect the Python config files in the repo root.
-4. In Replit, run the app with the provided run command:
+3. If Replit shows recovery mode, click **Recover original configuration files** once, then re-import the GitHub repo or refresh the workspace.
+4. Replit should detect the Python config files in the repo root.
+5. In Replit, run the app with the provided run command:
    - `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
-5. If Replit asks to install dependencies, it will read [requirements.txt](requirements.txt).
-6. Open the deployed backend URL.
-7. Check health endpoint:
+6. If Replit asks to install dependencies, it will read [requirements.txt](requirements.txt).
+7. Open the deployed backend URL.
+8. Check health endpoint:
    - `/health`
 
 Notes:
