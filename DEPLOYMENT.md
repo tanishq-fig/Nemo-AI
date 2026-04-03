@@ -8,6 +8,7 @@ This repo now includes two Docker deployment modes:
 Free cloud option:
 
 - Oracle Always Free guide: [DEPLOY_ORACLE_FREE.md](DEPLOY_ORACLE_FREE.md)
+- Vercel + Hugging Face guide: [DEPLOY_VERCEL_HF_FREE.md](DEPLOY_VERCEL_HF_FREE.md)
 
 ## 1) Prerequisites
 

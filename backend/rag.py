@@ -9,13 +9,20 @@ This module provides:
 """
 import os
 import numpy as np
-import faiss
 from pathlib import Path
 from typing import List, Tuple, Optional
 from sqlalchemy.orm import Session
 
 from models import ArgoDocument, ArgoProfile
 from config import settings
+
+# Lazy import for faiss (may be unavailable in lightweight/free deployments)
+faiss = None
+try:
+    import faiss
+except Exception as e:
+    print(f"⚠ faiss not available: {e}")
+    print("  RAG will operate in fallback mode without vector search")
 
 # Lazy import for sentence_transformers (may fail if PyTorch version is incompatible)
 SentenceTransformer = None
@@ -55,6 +62,10 @@ class RAGPipeline:
     
     def _load_index(self):
         """Load FAISS index and vector ID mapping."""
+        if faiss is None:
+            print("⚠ FAISS is unavailable, skipping vector index loading")
+            return
+
         index_path = settings.FAISS_INDEX_PATH
         mapping_path = index_path.replace('.bin', '_mapping.npy')
         
