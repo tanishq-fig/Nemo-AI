@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Mail, Lock, Waves } from 'lucide-react';
+import { Waves } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
 const LoginPage: React.FC = () => {

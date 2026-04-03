@@ -184,7 +184,11 @@ export const ChatPanel: React.FC = () => {
             {
               type: 'histogram',
               x: data.values,
-              nbinsx: 25,
+              xbins: {
+                start: Math.min(...data.values),
+                end: Math.max(...data.values),
+                size: 1
+              },
               marker: {
                 color: data.variable === 'temperature' ? '#ff634b' : 
                        data.variable === 'salinity' ? '#1ab1ff' : '#9333ea',
@@ -354,7 +358,6 @@ export const ChatPanel: React.FC = () => {
               x: variables,
               y: variables,
               colorscale: 'RdBu',
-              zmid: 0,
               showscale: true,
               text: matrix.map((row: number[]) => row.map((v: number) => v.toFixed(3))),
               hovertemplate: '%{y} vs %{x}: %{text}<extra></extra>'

@@ -1,16 +1,26 @@
-$ErrorActionPreference = "Stop"
-
 param(
   [Parameter(Mandatory=$true)]
   [string]$HfSpaceId
 )
 
-if (-not $env:HF_TOKEN -and -not $env:HUGGINGFACEHUB_API_TOKEN) {
-  Write-Error "Missing HF token. Set HF_TOKEN (or HUGGINGFACEHUB_API_TOKEN) before running."
-}
+$ErrorActionPreference = "Stop"
 
-if (-not $env:VERCEL_TOKEN) {
-  Write-Error "Missing VERCEL_TOKEN. Set it before running."
+$hfToken = $env:HF_TOKEN
+if (-not $hfToken) { $hfToken = $env:HUGGINGFACEHUB_API_TOKEN }
+
+if (-not $hfToken) {
+  if (Get-Command hf -ErrorAction SilentlyContinue) {
+    try {
+      hf auth whoami | Out-Null
+      Write-Host "HF token env var not set, using Hugging Face CLI login session."
+    }
+    catch {
+      Write-Error "Hugging Face not authenticated. Run: hf auth login or set HF_TOKEN."
+    }
+  }
+  else {
+    Write-Error "Hugging Face CLI not found and HF token not set."
+  }
 }
 
 if (-not (Get-Command py -ErrorAction SilentlyContinue)) {
@@ -34,7 +44,13 @@ Write-Host "Backend URL: $hfUrl"
 Push-Location frontend
 try {
   Write-Host "Deploying frontend to Vercel (production)..."
-  $deployOutput = vercel --prod --yes --token $env:VERCEL_TOKEN --build-env VITE_API_URL=$hfUrl 2>&1
+  if ($env:VERCEL_TOKEN) {
+    $deployOutput = vercel --prod --yes --token $env:VERCEL_TOKEN --build-env VITE_API_URL=$hfUrl 2>&1
+  }
+  else {
+    Write-Host "VERCEL_TOKEN not set, using existing Vercel CLI login session."
+    $deployOutput = vercel --prod --yes --build-env VITE_API_URL=$hfUrl 2>&1
+  }
   $deployOutput | Out-Host
 }
 finally {

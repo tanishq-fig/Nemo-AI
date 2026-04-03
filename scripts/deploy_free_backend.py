@@ -49,9 +49,6 @@ def main() -> int:
     args = parser.parse_args()
 
     token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACEHUB_API_TOKEN")
-    if not token:
-        print("Missing HF token. Set HF_TOKEN or HUGGINGFACEHUB_API_TOKEN.")
-        return 1
 
     source_dir = Path(args.source_dir).resolve()
     if not source_dir.exists():
