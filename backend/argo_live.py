@@ -16,7 +16,10 @@ class ARGOLiveFetcher:
         self.columns = "?platform_number,latitude,longitude,time,pres,temp,psal"
         self.erddap_url = f"{self.erddap_base_url}{self.columns}"
         
-        self.cache_dir = Path(cache_dir)
+        cache_path = Path(cache_dir)
+        if not cache_path.is_absolute():
+            cache_path = Path("/tmp") / cache_path.name
+        self.cache_dir = cache_path
         self.cache_dir.mkdir(exist_ok=True)
         self.max_region_size = 20  # degrees
         self.timeout = 30

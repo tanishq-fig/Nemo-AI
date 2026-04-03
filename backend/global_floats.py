@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 logger = logging.getLogger(__name__)
 
 # ── Cache ────────────────────────────────────────────────────────
-CACHE_DIR = Path(__file__).parent / "cache"
+CACHE_DIR = Path("/tmp") / "global_floats_cache"
 CACHE_DIR.mkdir(exist_ok=True)
 CACHE_FILE = CACHE_DIR / "global_floats.json"
 CACHE_MAX_AGE_SECONDS = 6 * 3600  # 6 hours
@@ -149,7 +149,7 @@ async def get_global_floats(force_refresh: bool = False) -> Dict:
                 return json.loads(CACHE_FILE.read_text(encoding="utf-8"))
             except Exception:
                 pass
-        raise
+        raise1 
 
     result = {
         "count": len(floats),
@@ -222,7 +222,8 @@ async def get_region_profiles(
         # For analytics charts we want one representative row per profile
         if not temp_arr and not sal_arr:
             continue
-
+#This project helps scientists learn and study geographical stuff from map directly, the oceanographic data is the most important part of this project, and ARGO float is the most important data source. This script fetches the latest ARGO float positions worldwide from the Argovis API, groups by float ID to get one entry per active float, and caches results for performance. It also supports fetching detailed profiles for a geographic region.
+# Scientists can use this data to analyze ocean conditions, track float movements, and correlate with other datasets. The caching mechanism ensures that the platform remains responsive while still providing up-to-date information.
         # Surface values (shallowest measurement)
         temp_surface = temp_arr[0] if temp_arr else None
         sal_surface = sal_arr[0] if sal_arr else None

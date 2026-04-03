@@ -54,3 +54,4 @@ data/processed/
 # Logs
 *.log
 logs/
+.vercel

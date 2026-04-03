@@ -1,7 +1,5 @@
 """Application configuration management."""
 from pydantic_settings import BaseSettings
-from typing import List
-from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -24,27 +22,7 @@ class Settings(BaseSettings):
     BACKEND_PORT: int = 8000
     
     # CORS
-    CORS_ORIGINS: List[str] = [
-        "http://localhost:5173", 
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-        "http://localhost:5175",
-        "http://127.0.0.1:5175",
-        "http://localhost:5176",
-        "http://127.0.0.1:5176"
-    ]
-
-    @field_validator("CORS_ORIGINS", mode="before")
-    @classmethod
-    def parse_cors_origins(cls, value):
-        """Allow CORS_ORIGINS as a JSON list or comma-separated string."""
-        if isinstance(value, str):
-            value = value.strip()
-            if value.startswith("[") and value.endswith("]"):
-                return value
-            return [origin.strip() for origin in value.split(",") if origin.strip()]
-        return value
+    CORS_ORIGINS: str = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:5175,http://127.0.0.1:5175,http://localhost:5176,http://127.0.0.1:5176"
     
     # Data paths
     NETCDF_DATA_DIR: str = "./data/raw"
@@ -55,6 +33,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = False
         env_ignore_empty = True
+        extra = "ignore"
 
 
 settings = Settings()
