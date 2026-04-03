@@ -5,6 +5,10 @@ This repo now includes two Docker deployment modes:
 - Local stack for testing: [docker-compose.yml](docker-compose.yml)
 - Production stack with HTTPS reverse proxy: [docker-compose.prod.yml](docker-compose.prod.yml)
 
+Free cloud option:
+
+- Oracle Always Free guide: [DEPLOY_ORACLE_FREE.md](DEPLOY_ORACLE_FREE.md)
+
 ## 1) Prerequisites
 
 - Docker Engine 24+
