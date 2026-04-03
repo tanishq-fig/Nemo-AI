@@ -5,6 +5,23 @@ This route avoids Oracle and Render billing setup.
 - Frontend: Vercel (free hobby)
 - Backend: Hugging Face Spaces Docker (free CPU)
 
+## Fastest path (automated from your machine)
+
+Use [deploy_free.ps1](deploy_free.ps1) after setting two tokens.
+
+PowerShell:
+
+```powershell
+$env:HF_TOKEN="hf_xxx"
+$env:VERCEL_TOKEN="vercel_xxx"
+./deploy_free.ps1 -HfSpaceId "yourname/argo-backend"
+```
+
+What it does:
+
+- uploads backend bundle to Hugging Face Space via [scripts/deploy_free_backend.py](scripts/deploy_free_backend.py)
+- deploys frontend to Vercel with VITE_API_URL pointing at your hf.space backend
+
 ## 1) Deploy backend on Hugging Face Spaces (free)
 
 1. Create a free Hugging Face account.
