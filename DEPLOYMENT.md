@@ -9,6 +9,7 @@ Free cloud option:
 
 - Oracle Always Free guide: [DEPLOY_ORACLE_FREE.md](DEPLOY_ORACLE_FREE.md)
 - Vercel + Hugging Face guide: [DEPLOY_VERCEL_HF_FREE.md](DEPLOY_VERCEL_HF_FREE.md)
+- Replit + Vercel guide: [DEPLOY_REPLIT_VERCEL_FREE.md](DEPLOY_REPLIT_VERCEL_FREE.md)
 
 ## 1) Prerequisites
 
